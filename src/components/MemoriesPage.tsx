@@ -42,16 +42,17 @@ const MemoriesPage: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
   const toast = useToast();
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     const fetchMemories = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('/api/memories', {
+        const response = await axios.get(`${backendUrl}/api/memories`, {
           headers: { 'x-auth-token': token }
         });
         setMemories(response.data);
-        setBackgroundImage(response.data[0]?.imgurl);
+        setBackgroundImage(selectedMemory? selectedMemory.imgurl : response.data[0]?.imgurl);
       } catch (err) {
         navigate('/');
       }
@@ -75,7 +76,7 @@ const MemoriesPage: React.FC = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post('/api/memories/comment', {
+      const response = await axios.post(`${backendUrl}/api/memories/comment`, {
         sid: selectedMemory?.sid,
         comment: newComment,
       }, {
@@ -124,7 +125,7 @@ const MemoriesPage: React.FC = () => {
 
     try {
       const token = localStorage.getItem('token');
-      await axios.post('/api/memories/reaction', {
+      await axios.post(`${backendUrl}/api/memories/reaction`, {
         sid: currentMemory.sid,
         reaction: emoji,
       }, {

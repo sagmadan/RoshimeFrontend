@@ -34,10 +34,12 @@ const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/auth/login', { username, password });
+      const backendUrl = process.env.REACT_APP_BACKEND_URL;
+      const response = await axios.post(`${backendUrl}/api/auth/login`, { username, password });
       localStorage.setItem('token', response.data.token);
 
       setShowWelcome(true);
