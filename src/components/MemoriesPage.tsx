@@ -158,7 +158,8 @@ const MemoriesPage: React.FC = () => {
 
   const settings = {
     arrows: true,
-    dots: true,
+    fade: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 1, // Show only 1 card for both mobile and non-mobile
@@ -352,7 +353,7 @@ const MemoriesPage: React.FC = () => {
         </Box>
 
         {/* Emoji Box */}
-        <Box mt={7} maxW="100%" p={7} display="flex" justifyContent="center">
+        <Box mt={0} maxW="100%" p={0} display="flex" justifyContent="center">
           <Box
             borderRadius="60px"
             boxShadow="md"
